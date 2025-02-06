@@ -24,15 +24,11 @@ This is the starting point for the **Math Competition App** assignment. The goal
 - [Node.js](https://nodejs.org) installed on your machine.
 - A code editor, such as [VSCode](https://code.visualstudio.com/).
 
-## How to Use this Template
+## How to Use this Repo
 
-This repository is set up as a **GitHub template** to help you quickly create your own version of the **Math Competition App**.
+This repository is set up as a **GitHub assignment** to help you quickly create your own version of the **Math Competition App**.
 
-### Steps to Create Your Own Repository
-
-1. **Click the "Use this template" button** at the top of this page on GitHub.
-   
-1. **Name your new repository** and choose its visibility (public or private).
+### Steps to use Your Own Repository
 
 1. Once your repository is created, **clone your new repo** to your local machine:
     ```bash
@@ -91,6 +87,7 @@ By using this template, you'll have the project structure and initial setup read
 - The project should run with `npm start` and all tests should pass with `npm test`.
 
 ## Notes
-- Extra npm packages are allowed (except for templating engines like React).
+- Extra npm packages are allowed (except for templating engines other than EJS, and no front-end frameworks like React).
+  - No session packages should be required for this assignment
 - All pages should use **.ejs templates**.
-- No persistent data storage is required; all data can be stored in memory.
+- All data should be stored in memory (using variables in the code). No persistence between server runs is required. For the sake of this project, assume only one user will be accessing the site at a time
