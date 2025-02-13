@@ -6,17 +6,33 @@ const port = 3000;
 // maximum score for the quiz
 // and this is the number of questions
 const MAX_SCORE = 10;
+
 // variable stores the current question number
-let question_count = 1;
+// =0 for home page
+// =1,2,3... for the quiz
+// =MAX_SCORE+1 for the score page
+let question_count = 0;
+
 // variable stores the current question text
 let question_text = "";
-// current streak - number of correct answers in a row
+
+// current streak - the last number of correct answers in a row
+// is reset to 0 if the answer is incorrect
+// otherwise it is never reset, since we need it to display
+// on the home page (but it's done only if al least one test was finished)
 let current_streak = 0;
+
 // past_answer_was_correct - whether the last answer was correct
+// helps increasing the streak
 let past_answer_was_correct = false;
+
 // test_score - current score
+// this is a sum of all corect answers in the test (out of MAX_SCORE)
 let test_score = 0;
-// tests_taken - number of tests taken
+
+// tests_taken - number of tests taken (between server restarts)
+// we pretty much only need this to decide if we need to display the streak
+// on the home page, it is done if it's >0
 let tests_taken = 0;
 
 app.set("view engine", "ejs");
@@ -43,7 +59,7 @@ app.get("/", (req, res) => {
 app.get("/quiz", (req, res) => {
   if (question_count > MAX_SCORE) {
     tests_taken++;
-    return res.redirect("/");
+    return res.redirect("/score");
   }
   //   question_count = questions_answered + 1;
   if (!question_text) {
@@ -85,6 +101,27 @@ app.post("/quiz", (req, res) => {
   }
   question_count++;
   question_text = "";
+  res.redirect("/quiz");
+});
+
+app.get("/score", (req, res) => {
+  console.log("question count", question_count);
+  if (question_count <= MAX_SCORE) {
+    return res.redirect("/");
+  }
+  const score_streak = current_streak;
+  const score_test = test_score;
+  question_count = 1;
+  res.render("score", { score_test, score_streak, MAX_SCORE });
+});
+
+// fake route to restart the quiz
+app.get("/start", (req, res) => {
+  question_count = 1;
+  quiz_in_progress = true;
+  current_score = 0;
+  questions_answered = 0;
+  current_question = "";
   res.redirect("/quiz");
 });
 

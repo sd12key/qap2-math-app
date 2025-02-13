@@ -10,7 +10,8 @@ describe("General tests for getQuestion function", () => {
     num2;
 
   // generate random question once before all tests
-  beforeAll(() => {
+  // could be set up in beforeAll() as well (to run only once)
+  beforeEach(() => {
     question = getQuestion();
     console.log("--> Generated Question:", question);
 
@@ -50,7 +51,8 @@ describe("Specific <ADDITION> tests for getQuestion function", () => {
     num2;
 
   // generate "+" question once before all tests
-  beforeAll(() => {
+  // could be set up in beforeAll() as well (to run only once)
+  beforeEach(() => {
     question = getQuestion("+");
     console.log("--> Generated Question:", question);
 
@@ -100,7 +102,8 @@ describe("Specific <SUBTRACTION> tests for getQuestion function", () => {
     num2;
 
   // generate "-" question once before all tests
-  beforeAll(() => {
+  // could be set up in beforeAll() as well (to run only once)
+  beforeEach(() => {
     question = getQuestion("-");
     console.log("--> Generated Question:", question);
 
@@ -154,7 +157,8 @@ describe("Specific <MULTIPLICATION> tests for getQuestion function", () => {
     num2;
 
   // generate "*" question once before all tests
-  beforeAll(() => {
+  // could be set up in beforeAll() as well (to run only once)
+  beforeEach(() => {
     question = getQuestion("×");
     console.log("--> Generated Question:", question);
 
@@ -200,8 +204,9 @@ describe("Specific <DIVISION> tests for getQuestion function", () => {
     num1,
     num2;
 
-  // generate "*" question once before all tests
-  beforeAll(() => {
+  // generate "*" question once before each test
+  // could be set up in beforeAll() as well (to run only once)
+  beforeEach(() => {
     question = getQuestion("÷");
     console.log("--> Generated Question:", question);
 
@@ -285,5 +290,17 @@ describe("Tests for isCorrectAnswer", () => {
     const question = "45 plus 23";
     const answer = "2.5";
     expect(isCorrectAnswer(question, answer)).toBe(false);
+  });
+
+  it("should give false for floating point number", () => {
+    const question = "23 - 12";
+    const answer = "11.3";
+    expect(isCorrectAnswer(question, answer)).toBe(false);
+  });
+
+  it("should give true for floating point number which can be parsed to integer", () => {
+    const question = "23 - 12";
+    const answer = "11.0000";
+    expect(isCorrectAnswer(question, answer)).toBe(true);
   });
 });

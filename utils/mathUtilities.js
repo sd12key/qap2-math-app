@@ -115,6 +115,11 @@ function getQuestion(operator = null) {
  * @param {*} answer The potential answer
  * @returns {boolean} True if the answer was correct, false otherwise.
  */
+
+// just a note - I only deal with integers here, no floats
+// and question string only includes integers and operators
+// so I may only need to check floats in the answer
+// if accidentally provided by the user during the test
 function isCorrectAnswer(question, answer) {
   // split the question into 2 operands and an operator
   // trim just in case
@@ -125,10 +130,16 @@ function isCorrectAnswer(question, answer) {
   // convert the operands to integers, answer as well
   const num1 = parseInt(first_operand, 10);
   const num2 = parseInt(second_operand, 10);
-  const answer_integer = parseInt(answer.trim(), 10);
 
-  // check for valid integers
-  if (isNaN(num1) || isNaN(num2) || isNaN(answer_integer)) {
+  // check for valid integers, just in case
+  if (isNaN(num1) || isNaN(num2)) {
+    return false;
+  }
+
+  // const answer_integer = parseInt(answer.trim(), 10);
+  // need to deal with possible float answers
+  const answer_integer = parseFloat(answer.trim());
+  if (isNaN(answer_integer) || !Number.isInteger(answer_integer)) {
     return false;
   }
 

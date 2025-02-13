@@ -1,0 +1,25 @@
+<!-- The header ejs template is included to ensure our CSS and fonts are loaded -->
+<%- include('partials/head') %>
+<%- include('partials/header') %>
+    <main class="main_container">
+        <h1>Quiz Complete!</h1>
+        <div class="results_container">
+            <div class="score_container">
+                <p class="score_label">Your Score</p>
+                <p class="score_value"><%= score_test %></p>
+            </div>
+            <div class="streak_res_container">
+                <p class="streak_res_label">Streak</p>
+                <p class="streak_res_value"><%= score_streak %></p>
+            </div>
+        </div>
+    
+        <div class="quiz_button_container">
+            <a class="start_over" href="/quiz">Start Over</a>
+            <a class="home_page" href="/">Home Page</a>
+        </div>
+    </main>
+    
+<%- include('partials/footer') %>
+</body>
+</html>
