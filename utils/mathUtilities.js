@@ -5,16 +5,20 @@ const operations = ["+", "-", "*", "/"];
  *
  * @returns {} The randomly generated math question
  */
-function getQuestion() {
+function getQuestion(operator = null) {
   let first_operand = 0;
   let second_operand = 0;
-  let operator = "";
+
+  console.log("last operator was: <", last_operator, ">");
 
   // first we generate random operator, ensure
   // it's different from the last one
-  do {
-    operator = operations[Math.floor(Math.random() * operations.length)];
-  } while (operator === last_operator);
+
+  if (!operator || !operations.includes(operator)) {
+    do {
+      operator = operations[Math.floor(Math.random() * operations.length)];
+    } while (operator === last_operator);
+  }
   last_operator = operator;
 
   // now generate random operands
@@ -36,42 +40,46 @@ function getQuestion() {
       do {
         first_operand = Math.floor(Math.random() * 89) + 11;
       } while (first_operand % 10 === 0);
-      // random number between 11 and (first_operand - 11)
-      // difference should not be ending in 0
+      // random number between least 11 and (first_operand-11),
+      // result must be a two-digit number,
+      // and difference should not be ending in 0
       do {
-        second_operand = Math.floor(Math.random() * (first_operand - 21)) + 11;
+        second_operand = Math.floor(Math.random() * (first_operand - 10)) + 11;
       } while (
+        // second_operand shouldn't end in 0
         second_operand % 10 === 0 ||
-        (first_operand - second_operand) % 10 === 0
+        // result shouldn't end in 0
+        (first_operand - second_operand) % 10 === 0 ||
+        // result must be a two-digit number
+        first_operand - second_operand < 10
       );
       break;
     case "*":
-      // to make things interesting, one of the operands can be between 3 and 9, second - between 3 an 17.
-
-      // 50% chance of first operand being between 3 and 9
+      // 1st operand be between 3 and 9, second - between 3 an 17.
+      // or visa versa
       if (Math.random() < 0.5) {
         first_operand = Math.floor(Math.random() * 7) + 3;
         second_operand = Math.floor(Math.random() * 15) + 3;
-      }
-      // 50% chance of first operand being between 3 and 9
-      else {
-        second_operand = Math.floor(Math.random() * 7) + 3;
+      } else {
         first_operand = Math.floor(Math.random() * 15) + 3;
+        second_operand = Math.floor(Math.random() * 7) + 3;
       }
       break;
     case "/":
-      do {
-        // random number between 3 and 49, and not 10
-        second_operand = Math.floor(Math.random() * 47) + 3;
-      } while (second_operand === 10);
+      // Generate a random divisor between 2 and 9
+      second_operand = Math.floor(Math.random() * 8) + 2;
 
-      // find appropriate integer multiplier so the
-      // divisible is between 12 and 99
+      // get maximum quotient such that first_operand <= 99
+      const n = Math.floor(99 / second_operand);
+
+      // random quotient between 2 and n, excluding 10
+      let quotient;
       do {
-        const multiplier =
-          Math.floor(Math.random() * Math.floor(99 / second_operand)) + 1;
-        first_operand = second_operand * multiplier;
-      } while (first_operand < 12 || first_operand > 99);
+        quotient = Math.floor(Math.random() * (n - 1)) + 2;
+      } while (quotient === 10);
+
+      // calculate the dividend
+      first_operand = quotient * second_operand;
       break;
   }
   return `${first_operand} ${operator} ${second_operand}`;
