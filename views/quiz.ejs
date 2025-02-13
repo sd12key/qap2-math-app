@@ -2,21 +2,24 @@
 <%- include('partials/head') %>
 <%- include('partials/header') %>
 <main class="main_container">
-    <h2>Quiz Question #<%= question_count %> (<%= MAX_SCORE %>)</h2>
+    <h2 class="question_number">Question <%= question_count %> of <%= MAX_SCORE %></h2>
     <!-- <p>Answer the question below:</p> -->
     <!-- Display your question here -->
-    <h1><%= question_text %>&nbsp;=&nbsp;?</h1>
+    <h1 class="question"><%= question_text %>&nbsp;=&nbsp;?</h1>
+    <div class="quiz_form_container">
+    <a href="/">Quit</a>
     <form action="/quiz" method="POST">
         <!-- This handles sending the user's answer back to the server. It's not recommended you modify this, as you shouldn't need to -->
-        <label for="answer">Answer</label>
-        <input type="text" id="answer" name="answer" required>
+        <div class="label_input_div">
+            <label for="answer">Answer</label>
+            <input type="text" id="answer" name="answer" required>
+        </div>
         <button type="submit">Submit</button>
-        
     </form>
-    <div class="quiz_button_container">
-        <a href="/">Quit</a>
-        <h3>Current Streak: <%= current_streak %> (max <%= MAX_SCORE %>)
-        </h3>
+    <div class="streak_container">
+        <p class="streak_label">Current Streak</p>
+        <p class="streak_value"><%= current_streak %></p>
+    </div>
     </div>
 </main>
     <%- include('partials/footer') %>    

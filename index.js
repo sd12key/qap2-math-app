@@ -6,8 +6,6 @@ const port = 3000;
 // maximum score for the quiz
 // and this is the number of questions
 const MAX_SCORE = 10;
-// variable stores the number of questions answered
-let questions_answered = 0;
 // variable stores the current question number
 let question_count = 1;
 // variable stores the current question text
@@ -29,6 +27,9 @@ app.use(express.static("public")); // To serve static files (e.g., CSS)
 app.get("/", (req, res) => {
   question_text = "";
   question_count = 1;
+  past_answer_was_correct = false;
+  current_streak = 0;
+  test_score = 0;
   console.log(
     "MAIN PAGE, Tests taken",
     tests_taken,
