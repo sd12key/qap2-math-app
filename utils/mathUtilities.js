@@ -70,9 +70,13 @@ function getQuestion(operator = null) {
       // or visa versa
       if (Math.random() < 0.5) {
         first_operand = Math.floor(Math.random() * 7) + 3;
-        second_operand = Math.floor(Math.random() * 15) + 3;
+        do {
+          second_operand = Math.floor(Math.random() * 15) + 3;
+        } while (second_operand % 10 === 0);
       } else {
-        first_operand = Math.floor(Math.random() * 15) + 3;
+        do {
+          first_operand = Math.floor(Math.random() * 15) + 3;
+        } while (first_operand % 10 === 0);
         second_operand = Math.floor(Math.random() * 7) + 3;
       }
       break;
