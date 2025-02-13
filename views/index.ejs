@@ -2,15 +2,17 @@
 <%- include('partials/head') %>
 <%- include('partials/header') %>
     <main class="main_container">
-        <h1>Want to test your math skills <%= past_streaks > 0 ? "again" : "" %>?</h1>
+        <h1>Want to test your math skills<%= tests_taken > 0 ? " again" : ""%>?</h1>
         <div class="quiz_button_container">
-            <a href="/quiz">Start Quiz!</a>
-
+            <a href="/quiz">Start</a>
         </div>
-        <% if (past_streaks > 0) { %>
-            <h3>Your last score was <%= last_score %> out of <%= MAX_SCORE %></h3>
+        <% if (tests_taken > 0) { %>
+            <h3>Your last streak was <%= current_streak %> (max <%= MAX_SCORE %>)</h3>
+        <% } else { %>
+            <h3>Take the quiz to start your streak!</h3>
         <% } %>
-        </main>
+    </main>
+    
 <%- include('partials/footer') %>
 </body>
 </html>

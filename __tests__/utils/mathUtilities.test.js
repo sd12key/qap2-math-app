@@ -28,7 +28,7 @@ describe("General tests for getQuestion function", () => {
   });
 
   it("should have a valid operator", () => {
-    expect(["+", "-", "*", "/"]).toContain(operator);
+    expect(["+", "-", "×", "÷"]).toContain(operator);
   });
 
   it("should have a valid first operand", () => {
@@ -155,7 +155,7 @@ describe("Specific <MULTIPLICATION> tests for getQuestion function", () => {
 
   // generate "*" question once before all tests
   beforeAll(() => {
-    question = getQuestion("*");
+    question = getQuestion("×");
     console.log("--> Generated Question:", question);
 
     // split the question into parts
@@ -172,7 +172,7 @@ describe("Specific <MULTIPLICATION> tests for getQuestion function", () => {
   });
 
   it("should have a valid multiplication operator", () => {
-    expect(operator === "*").toBe(true);
+    expect(operator === "×").toBe(true);
   });
 
   it("should have a valid first operand", () => {
@@ -202,7 +202,7 @@ describe("Specific <DIVISION> tests for getQuestion function", () => {
 
   // generate "*" question once before all tests
   beforeAll(() => {
-    question = getQuestion("/");
+    question = getQuestion("÷");
     console.log("--> Generated Question:", question);
 
     // split the question into parts
@@ -219,7 +219,7 @@ describe("Specific <DIVISION> tests for getQuestion function", () => {
   });
 
   it("should have a valid division operator", () => {
-    expect(operator === "/").toBe(true);
+    expect(operator === "÷").toBe(true);
   });
 
   it("should have a valid first operand", () => {
@@ -245,9 +245,27 @@ describe("Specific <DIVISION> tests for getQuestion function", () => {
 
 // now check the isCorrectAnswer function
 describe("Tests for isCorrectAnswer", () => {
-  it("should true in case of a correct answer", () => {
+  it("true in case of a correct addition answer", () => {
     const question = "45 + 23";
     const answer = "68";
+    expect(isCorrectAnswer(question, answer)).toBe(true);
+  });
+
+  it("true in case of a correct subtraction answer", () => {
+    const question = "45 - 23";
+    const answer = "22";
+    expect(isCorrectAnswer(question, answer)).toBe(true);
+  });
+
+  it("true in case of a correct multiplication answer", () => {
+    const question = "5 × 11";
+    const answer = "55";
+    expect(isCorrectAnswer(question, answer)).toBe(true);
+  });
+
+  it("true in case of a correct division answer", () => {
+    const question = "88 ÷ 11";
+    const answer = "8";
     expect(isCorrectAnswer(question, answer)).toBe(true);
   });
 

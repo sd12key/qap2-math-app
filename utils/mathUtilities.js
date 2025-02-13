@@ -1,5 +1,5 @@
 let last_operator = null;
-const operations = ["+", "-", "*", "/"];
+const operations = ["+", "-", "×", "÷"];
 /**
  * Gets a randomly generated multiplication, division, subtraction or addition question
  *
@@ -16,10 +16,12 @@ function getQuestion(operator = null) {
 
   if (!operator || !operations.includes(operator)) {
     do {
+      console.log("generating random operator");
       operator = operations[Math.floor(Math.random() * operations.length)];
     } while (operator === last_operator);
   }
   last_operator = operator;
+  console.log("operator generated: <", operator, ">");
 
   // now generate random operands
   switch (operator) {
@@ -34,11 +36,13 @@ function getQuestion(operator = null) {
       } while (second_operand % 10 === 0);
       break;
     case "-":
+      console.log("generating subtraction question");
       // to make things interesting, subtract only
-      // 2 digit numbers from 11 to 99, and not ending in 0
-      // and result must be 2 digit as well, but not negative
+      // 2 digit numbers (1st one from 31 to 99, 2nd one from 11),
+      // and not ending in 0, and result must be 2 digit as well,
+      // but not negative
       do {
-        first_operand = Math.floor(Math.random() * 89) + 11;
+        first_operand = Math.floor(Math.random() * 69) + 31;
       } while (first_operand % 10 === 0);
       // random number between least 11 and (first_operand-11),
       // result must be a two-digit number,
@@ -53,8 +57,15 @@ function getQuestion(operator = null) {
         // result must be a two-digit number
         first_operand - second_operand < 10
       );
+      console.log(
+        "generated question: <",
+        first_operand,
+        "-",
+        second_operand,
+        ">"
+      );
       break;
-    case "*":
+    case "×":
       // 1st operand be between 3 and 9, second - between 3 an 17.
       // or visa versa
       if (Math.random() < 0.5) {
@@ -65,7 +76,7 @@ function getQuestion(operator = null) {
         second_operand = Math.floor(Math.random() * 7) + 3;
       }
       break;
-    case "/":
+    case "÷":
       // Generate a random divisor between 2 and 9
       second_operand = Math.floor(Math.random() * 8) + 2;
 
@@ -82,6 +93,14 @@ function getQuestion(operator = null) {
       first_operand = quotient * second_operand;
       break;
   }
+
+  console.log(
+    "question generated: <",
+    first_operand,
+    operator,
+    second_operand,
+    ">"
+  );
   return `${first_operand} ${operator} ${second_operand}`;
 }
 
@@ -118,10 +137,10 @@ function isCorrectAnswer(question, answer) {
     case "-":
       correct_answer = num1 - num2;
       break;
-    case "*":
+    case "×":
       correct_answer = num1 * num2;
       break;
-    case "/":
+    case "÷":
       // division by 0 is not allowed
       if (num2 === 0) return false;
       correct_answer = num1 / num2;
