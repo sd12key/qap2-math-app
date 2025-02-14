@@ -4,10 +4,10 @@
     <main class="main_container">
         <h1>Want to test your math skills<%= tests_taken > 0 ? " again" : ""%>?</h1>
         <div class="quiz_button_container">
-            <a href="/quiz">Start</a>
+            <a href="/start">Start</a>
         </div>
         <% if (tests_taken > 0) { %>
-            <h3>Your last streak was <%= current_streak %> (max <%= MAX_SCORE %>)</h3>
+            <h3>Your last streak was <%= saved_streak %> (max <%= MAX_SCORE %>)</h3>
         <% } else { %>
             <h3>Take the quiz to start your streak!</h3>
         <% } %>

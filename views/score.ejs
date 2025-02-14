@@ -6,17 +6,30 @@
         <div class="results_container">
             <div class="score_container">
                 <p class="score_label">Your Score</p>
-                <p class="score_value"><%= score_test %></p>
+                <p class="score_value"><%= test_score %></p>
             </div>
             <div class="streak_res_container">
                 <p class="streak_res_label">Streak</p>
-                <p class="streak_res_value"><%= score_streak %></p>
+                <p class="streak_res_value"><%= current_streak %></p>
             </div>
         </div>
     
+        <table class="test_results">
+            <tr>
+                <th>Question</th>
+                <th>Answer</th>
+            </tr>
+            <% test_record.forEach(record => { %>
+                <tr>
+                    <td class="<%= record.correct ? 'correct_answer' : 'incorrect_answer' %>"><%= record.question %>&nbsp=&nbsp?</td>
+                    <td class="<%= record.correct ? 'correct_answer' : 'incorrect_answer' %>"><%= record.answer %></td>
+                </tr>
+            <% }); %>
+        </table>
+        
         <div class="quiz_button_container">
-            <a class="start_over" href="/quiz">Start Over</a>
-            <a class="home_page" href="/">Home Page</a>
+            <a class="start_over" href="/start">Start Over</a>
+            <a class="home_page" href="/home">Home Page</a>
         </div>
     </main>
     

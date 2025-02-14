@@ -5,23 +5,21 @@ const operations = ["+", "-", "×", "÷"];
  *
  * @returns {} The randomly generated math question
  */
+
+// I did paramater here to test the function with different operators in Jest
 function getQuestion(operator = null) {
   let first_operand = 0;
   let second_operand = 0;
 
-  console.log("last operator was: <", last_operator, ">");
-
+  // console.log("last operator was: <", last_operator, ">");
   // first we generate random operator, ensure
   // it's different from the last one
-
   if (!operator || !operations.includes(operator)) {
     do {
-      console.log("generating random operator");
       operator = operations[Math.floor(Math.random() * operations.length)];
     } while (operator === last_operator);
   }
   last_operator = operator;
-  console.log("operator generated: <", operator, ">");
 
   // now generate random operands
   switch (operator) {
@@ -36,7 +34,6 @@ function getQuestion(operator = null) {
       } while (second_operand % 10 === 0);
       break;
     case "-":
-      console.log("generating subtraction question");
       // to make things interesting, subtract only
       // 2 digit numbers (1st one from 31 to 99, 2nd one from 11),
       // and not ending in 0, and result must be 2 digit as well,
@@ -56,13 +53,6 @@ function getQuestion(operator = null) {
         (first_operand - second_operand) % 10 === 0 ||
         // result must be a two-digit number
         first_operand - second_operand < 10
-      );
-      console.log(
-        "generated question: <",
-        first_operand,
-        "-",
-        second_operand,
-        ">"
       );
       break;
     case "×":
@@ -97,14 +87,6 @@ function getQuestion(operator = null) {
       first_operand = quotient * second_operand;
       break;
   }
-
-  console.log(
-    "question generated: <",
-    first_operand,
-    operator,
-    second_operand,
-    ">"
-  );
   return `${first_operand} ${operator} ${second_operand}`;
 }
 

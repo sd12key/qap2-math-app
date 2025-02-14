@@ -13,7 +13,7 @@ describe("General tests for getQuestion function", () => {
   // could be set up in beforeAll() as well (to run only once)
   beforeEach(() => {
     question = getQuestion();
-    console.log("--> Generated Question:", question);
+    // console.log("--> Generated Question:", question);
 
     // split the question into parts
     question_parts = question.split(" ");
@@ -54,7 +54,7 @@ describe("Specific <ADDITION> tests for getQuestion function", () => {
   // could be set up in beforeAll() as well (to run only once)
   beforeEach(() => {
     question = getQuestion("+");
-    console.log("--> Generated Question:", question);
+    // console.log("--> Generated Question:", question);
 
     // split the question into parts
     question_parts = question.split(" ");
@@ -105,7 +105,7 @@ describe("Specific <SUBTRACTION> tests for getQuestion function", () => {
   // could be set up in beforeAll() as well (to run only once)
   beforeEach(() => {
     question = getQuestion("-");
-    console.log("--> Generated Question:", question);
+    // console.log("--> Generated Question:", question);
 
     // split the question into parts
     question_parts = question.split(" ");
@@ -160,7 +160,7 @@ describe("Specific <MULTIPLICATION> tests for getQuestion function", () => {
   // could be set up in beforeAll() as well (to run only once)
   beforeEach(() => {
     question = getQuestion("×");
-    console.log("--> Generated Question:", question);
+    // console.log("--> Generated Question:", question);
 
     // split the question into parts
     question_parts = question.split(" ");
@@ -208,7 +208,7 @@ describe("Specific <DIVISION> tests for getQuestion function", () => {
   // could be set up in beforeAll() as well (to run only once)
   beforeEach(() => {
     question = getQuestion("÷");
-    console.log("--> Generated Question:", question);
+    // console.log("--> Generated Question:", question);
 
     // split the question into parts
     question_parts = question.split(" ");
