@@ -305,10 +305,12 @@ table {
 
 td:nth-child(1) {
   width: 280px;
+  max-width: 280px;
 }
 
 td:nth-child(2) {
   width: 150px;
+  max-width: 150px;
 }
 
 td {
@@ -327,6 +329,9 @@ td {
   font-size: 2.4rem;
   padding: 10px 10px;
   text-align: center;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .quiz_button_container a.start_over,
