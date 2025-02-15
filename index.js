@@ -39,10 +39,19 @@ let test_score = 0;
 // test_record - array of objects, each object contains
 let test_record = [];
 
-// tests_taken - number of tests taken (between server restarts)
-// we pretty much only need this to decide if we need to display the streak
-// on the home page, it is done if it's >0
-let tests_taken = 0;
+// sets to true if the test was repeated
+// we pretty much only need this to decide if we need to
+// display the last streak and word "again" on the home page
+let repeated_test = false;
+
+// initalize quiz variables
+function init_quiz() {
+  current_streak = 0;
+  current_question = "";
+  past_answer_was_correct = false;
+  test_score = 0;
+  test_record = [];
+}
 
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true })); // For parsing form data
@@ -51,30 +60,27 @@ app.use(express.static("public")); // To serve static files (e.g., CSS)
 //Some routes required for full functionality are missing here. Only get routes should be required
 app.get("/", (req, res) => {
   // if the test is in progress, redirect to the quiz page
-  // do ot allow for manual navigation to the home page
+  // do to allow for manual navigation to the home page
   if (question_count > 0 && question_count <= MAX_SCORE) {
     return res.redirect("/quiz");
+  } else if (question_count > MAX_SCORE) {
+    return res.redirect("/score");
   }
-  question_count = 0;
-  question_text = "";
-  past_answer_was_correct = false;
-  current_streak = 0;
-  test_score = 0;
-  test_record = [];
-  res.render("index", { saved_streak, MAX_SCORE, tests_taken });
+  res.render("index", { saved_streak, MAX_SCORE, repeated_test });
 });
 
 app.get("/quiz", (req, res) => {
+  console.log("question count", question_count);
+
   // redirect to home if no test has started
   if (question_count === 0) {
     return res.redirect("/");
   }
   // redirect to score page if the test is over
   // we save the streak to display it on the score page
-  // only when the test is over
-  // and increment the number of tests taken as well
+  // set repeated_test to true, to display streak on the home page
   if (question_count > MAX_SCORE) {
-    tests_taken++;
+    repeated_test = true;
     saved_streak = current_streak;
     return res.redirect("/score");
   }
@@ -150,9 +156,7 @@ app.get("/score", (req, res) => {
 // fake route to restart the quiz
 app.get("/start", (req, res) => {
   question_count = 1;
-  current_streak = 0;
-  questions_answered = 0;
-  current_question = "";
+  init_quiz();
   res.redirect("/quiz");
 });
 
@@ -161,7 +165,7 @@ app.get("/home", (req, res) => {
   // need to reset the question count to 0
   // otherwise "/" will not let us in
   question_count = 0;
-  console.log("Returning to home page. Tests taken:", tests_taken);
+  console.log("question count", question_count);
   res.redirect("/");
 });
 

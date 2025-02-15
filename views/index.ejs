@@ -2,11 +2,11 @@
 <%- include('partials/head') %>
 <%- include('partials/header') %>
     <main class="main_container">
-        <h1>Want to test your math skills<%= tests_taken > 0 ? " again" : ""%>?</h1>
+        <h1>Want to test your math skills<%= repeated_test ? " again" : ""%>?</h1>
         <div class="quiz_button_container">
             <a href="/start">Start</a>
         </div>
-        <% if (tests_taken > 0) { %>
+        <% if (repeated_test) { %>
             <h3>Your last streak was <%= saved_streak %> (max <%= MAX_SCORE %>)</h3>
         <% } else { %>
             <h3>Take the quiz to start your streak!</h3>

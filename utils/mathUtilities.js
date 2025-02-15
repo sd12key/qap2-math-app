@@ -71,19 +71,24 @@ function getQuestion(operator = null) {
       }
       break;
     case "÷":
-      // Generate a random divisor between 2 and 9
+      // generate a random divisor between 2 and 9
       second_operand = Math.floor(Math.random() * 8) + 2;
 
-      // get maximum quotient such that first_operand <= 99
+      // get maximum quotient such that first_operand(dividend) <= 99
       const n = Math.floor(99 / second_operand);
 
-      // random quotient between 2 and n, excluding 10
-      let quotient;
-      do {
-        quotient = Math.floor(Math.random() * (n - 1)) + 2;
-      } while (quotient === 10);
+      // ensure that the quotient is not 10
+      if (n === 10) {
+        // if n=10, choose quotient from 2 to 9
+        quotient = Math.floor(Math.random() * 8) + 2;
+      } else {
+        // random quotient between 2 and n (but excluding 10)
+        do {
+          quotient = Math.floor(Math.random() * (n - 1)) + 2;
+        } while (quotient === 10);
+      }
 
-      // calculate the dividend
+      // get dividend
       first_operand = quotient * second_operand;
       break;
   }
